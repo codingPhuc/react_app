@@ -1,0 +1,19 @@
+@startuml
+actor       user       as Foo1
+boundary    frontend    as Foo2
+control     backend     as Foo3
+Foo1 ->  Foo2 : fill in the form / click login
+Foo2 -> Foo2 : verify the flied  
+alt successful case
+Foo2 -> Foo3 :  send user information 
+    alt successful case
+    Foo3 -> Foo2 : return bear token
+    Foo2 -> Foo1 : page redirect  to the login page
+    else some kind of failure
+    Foo3 --> Foo2 :  incorrect credential 
+    Foo2 -> Foo1 : tell user to re-enter information 
+    end
+else some kind of failure
+    Foo2 --> Foo1 : user have not enter all the flied 
+end 
+@enduml
