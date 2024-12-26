@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 // import Link from "next/link";
 
 import FormRegistor from "./components/FormRegistor";
 export default function RegisterPage() {
+  useEffect(() => {
+    function fetchToken() {
+      const sessionToken = sessionStorage.getItem("token");
+      const localToken = localStorage.getItem("token");
+      if (localToken || sessionToken) {
+        navigation.navigate("mainPage");
+      }
+    }
+    fetchToken();
+  }, []);
   return (
     <div className="flex flex-row">
       <div className="text-white w-full h-screen  bg-gradient-to-b from-cyan-400 via-cyan-500 to-cyan-600 flex flex-col justify-center items-start pl-16 ">

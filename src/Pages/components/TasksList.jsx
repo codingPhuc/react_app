@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { taskContext } from "../../store/user-tasks-context";
 import errorContentContainer from "../../assets/errorContentContainer.png";
 export default function TasksList() {
-  const {tasks} = useContext(taskContext);
+  const { tasks } = useContext(taskContext);
   const [filter, setFilter] = useState(undefined);
   return (
     <>
@@ -76,11 +76,7 @@ export default function TasksList() {
           {tasks.map(
             (task) =>
               (task.completed === filter || filter === undefined) && (
-                <Task
-                  key={task._id}
-                  text={task.text}
-                  completed={task.completed}
-                />
+                <Task key={task._id} task={task} />
               )
           )}
         </div>

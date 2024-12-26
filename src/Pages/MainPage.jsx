@@ -9,31 +9,13 @@ import TaskContextProvider from "../store/user-tasks-context";
 import { fetchUserTasks } from "../http";
 import TaskBar from "./components/TasksBar";
 export default function MainPage() {
-  const [tasks, setTasks] = useState([]);
-
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    function fetchToken() {
-      const sessionToken = JSON.parse(sessionStorage.getItem("token"));
-      const localToken = JSON.parse(localStorage.getItem("token"));
-      localToken ? setToken(localToken) : setToken(sessionToken);
-    }
-    fetchToken();
-  }, []);
-  useEffect(() => {
-    async function fetchTasks() {
-      try {
-        const fetchedTasks = await fetchUserTasks(token);
-        setTasks(fetchedTasks);
-      } catch (error) {
-        console.error("Failed to fetch tasks:", error);
-      }
-    }
-    fetchTasks();
-  }, [token]);
+  function handleLogout() {
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    navigation.navigate("/");
+  }
   return (
-    <TaskContextProvider tasks={tasks} token={token}>
+    <TaskContextProvider>
       <div className="flex bg-green_lime flex-col items-center justify-center h-screen">
         <div className="bg-white w-[70%] h-[85%] rounded-3xl px-16  py-10">
           <div className=" bg-transparent px-6 w-full mb-5">
@@ -44,7 +26,7 @@ export default function MainPage() {
                 className="h-10 w-10 mr-[8px] rounded-3xl"
               ></img>
               <p>John holland</p>
-              <button className="ml-auto">
+              <button className="ml-auto" onClick={handleLogout}>
                 <img src={ButtonLogOut}></img>
               </button>
             </div>

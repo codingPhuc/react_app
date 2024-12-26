@@ -4,16 +4,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import { signInToUserAccount } from "../../http";
 export default function FormLogin() {
-  useEffect(() => {
-    function fetchToken() {
-      const sessionToken = sessionStorage.getItem("token");
-      const localToken = localStorage.getItem("token");
-      if (localToken || sessionToken) {
-        navigation.navigate("mainPage");
-      }
-    }
-    fetchToken();
-  }, []);
+
 
   const [userInformation, setUserInformation] = useState({
     email: "",
